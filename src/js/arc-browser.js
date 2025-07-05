@@ -149,6 +149,46 @@ class ArcBrowserTheme {
         });
     }
 
+    onTabCreated(tab) {
+        // This is called when a new tab is created
+        const tabsList = document.getElementById('arc-tabs-list');
+        if (!tabsList) return;
+
+        const tabElement = this.createTabElement(tab);
+        tabsList.appendChild(tabElement);
+        
+        // Set up event listeners for the new tab
+        this.setupTabEventListeners(tabElement, tab);
+    }
+
+    onTabUpdated(tab) {
+        // This is called when a tab is updated
+        const existingTabElement = document.querySelector(`[data-tab-id="${tab.id}"]`);
+        if (existingTabElement) {
+            const titleElement = existingTabElement.querySelector('.arc-tab-title');
+            const faviconElement = existingTabElement.querySelector('.arc-tab-favicon');
+            
+            if (titleElement) {
+                titleElement.textContent = tab.title;
+            }
+            
+            if (faviconElement) {
+                faviconElement.innerHTML = this.getFaviconContent(tab);
+            }
+            
+            // Update active state
+            existingTabElement.classList.toggle('active', tab.id === this.browserApp.activeTabId);
+        }
+    }
+
+    onTabClosed(tabId) {
+        // This is called when a tab is closed
+        const tabElement = document.querySelector(`[data-tab-id="${tabId}"]`);
+        if (tabElement) {
+            tabElement.remove();
+        }
+    }
+
     createTabElement(tab) {
         const tabElement = document.createElement('div');
         tabElement.className = 'arc-tab-item';
@@ -168,7 +208,35 @@ class ArcBrowserTheme {
             <button class="arc-tab-close">×</button>
         `;
 
+        this.setupTabEventListeners(tabElement, tab);
         return tabElement;
+    }
+
+    setupTabEventListeners(tabElement, tab) {
+        // Click to activate tab
+        tabElement.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('arc-tab-close')) {
+                this.browserApp.activateTab(tab.id);
+                this.updateTabActiveStates();
+            }
+        });
+
+        // Close tab button
+        const closeBtn = tabElement.querySelector('.arc-tab-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.browserApp.closeTab(tab.id);
+            });
+        }
+    }
+
+    updateTabActiveStates() {
+        const tabElements = document.querySelectorAll('.arc-tab-item');
+        tabElements.forEach(tabElement => {
+            const tabId = tabElement.dataset.tabId;
+            tabElement.classList.toggle('active', tabId === this.browserApp.activeTabId);
+        });
     }
 
     getFaviconContent(tab) {

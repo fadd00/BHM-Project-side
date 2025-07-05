@@ -25,6 +25,11 @@ class BrowserApp {
         this.sidebar = new SidebarManager(this);
         this.bookmarks = new BookmarksManager(this);
         this.settings = new SettingsManager(this);
+        
+        // Initialize Arc theme if present
+        if (document.body.classList.contains('arc-theme')) {
+            this.arcTheme = new ArcBrowserTheme(this);
+        }
     }
 
     setupEventListeners() {
@@ -144,8 +149,8 @@ class BrowserApp {
         // Check if we're using Arc theme
         if (document.body.classList.contains('arc-theme')) {
             // Arc theme handles tab creation differently
-            if (window.arcTheme) {
-                window.arcTheme.onTabCreated(tab);
+            if (this.arcTheme) {
+                this.arcTheme.onTabCreated(tab);
             }
             return;
         }
@@ -269,8 +274,8 @@ class BrowserApp {
         this.updateNavigationState();
 
         // Notify Arc theme if active
-        if (window.arcTheme) {
-            window.arcTheme.onTabActivated(tabId);
+        if (this.arcTheme) {
+            this.arcTheme.updateTabActiveStates();
         }
     }
 
@@ -294,8 +299,8 @@ class BrowserApp {
         this.tabs.delete(tabId);
 
         // Notify Arc theme if active
-        if (window.arcTheme) {
-            window.arcTheme.onTabClosed(tabId);
+        if (this.arcTheme) {
+            this.arcTheme.onTabClosed(tabId);
         }
 
         // If this was the active tab, activate another one
@@ -399,8 +404,8 @@ class BrowserApp {
         }
 
         // Notify Arc theme if active
-        if (window.arcTheme) {
-            window.arcTheme.onTabUpdated(tabId, { title });
+        if (this.arcTheme) {
+            this.arcTheme.onTabUpdated(tab);
         }
     }
 
@@ -415,8 +420,8 @@ class BrowserApp {
         }
 
         // Notify Arc theme if active
-        if (window.arcTheme) {
-            window.arcTheme.onTabUpdated(tabId, { favicon });
+        if (this.arcTheme) {
+            this.arcTheme.onTabUpdated(tab);
         }
     }
 
