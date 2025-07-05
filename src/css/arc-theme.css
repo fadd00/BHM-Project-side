@@ -31,8 +31,16 @@
 
 .browser-container {
     display: flex;
+    flex-direction: row; /* Changed from column to row */
     height: 100vh;
     background: linear-gradient(135deg, var(--arc-background) 0%, #111111 100%);
+}
+
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column; /* Added to stack nav and content */
+    flex: 1;
+    overflow: hidden;
 }
 
 /* Arc Sidebar */
@@ -396,9 +404,9 @@
 /* Main Content Area */
 .arc-main-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: var(--arc-background);
+    display: flex; /* Ensure webviews fill the space */
+    position: relative;
+    overflow: hidden;
 }
 
 /* Navigation Bar */
@@ -473,7 +481,7 @@
 .arc-address-bar:focus-within {
     border-color: var(--arc-primary);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-    background: var(--arc-surface-hover);
+    background: var(--arc-surface);
 }
 
 .arc-security-indicator {
@@ -533,26 +541,29 @@
     background: var(--arc-background);
 }
 
-.webview-container {
+#webview-container {
+    flex: 1;
+    position: relative;
+    display: flex; /* Use flexbox to manage webviews */
+}
+
+webview {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: none;
-    border-radius: var(--arc-radius) var(--arc-radius) 0 0;
-    overflow: hidden;
-}
-
-.webview-container.active {
-    display: block;
-}
-
-.webview-container webview {
-    width: 100%;
-    height: 100%;
     border: none;
-    border-radius: var(--arc-radius) var(--arc-radius) 0 0;
+    background-color: var(--arc-background);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Prevent interaction with hidden webviews */
+}
+
+webview.active {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: auto; /* Allow interaction with the active webview */
 }
 
 /* Clear button */

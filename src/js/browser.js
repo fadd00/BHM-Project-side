@@ -16,20 +16,18 @@ class BrowserApp {
     }
 
     initializeApp() {
+        // Initialize Arc theme if present
+        if (document.body.classList.contains('arc-theme')) {
+            this.arcTheme = new ArcBrowserTheme(this);
+        }
+
         // Create the first tab
         this.createNewTab();
         
         // Initialize components
         this.navigation = new NavigationManager(this);
-        this.tabManager = new TabManager(this);
-        this.sidebar = new SidebarManager(this);
         this.bookmarks = new BookmarksManager(this);
         this.settings = new SettingsManager(this);
-        
-        // Initialize Arc theme if present
-        if (document.body.classList.contains('arc-theme')) {
-            this.arcTheme = new ArcBrowserTheme(this);
-        }
     }
 
     setupEventListeners() {
@@ -171,19 +169,18 @@ class BrowserApp {
     }
 
     createWebviewElement(tab) {
-        const browserViews = document.getElementById('browser-views') || document.getElementById('arc-browser-views');
-        const webviewContainer = document.createElement('div');
-        webviewContainer.className = 'webview-container';
-        webviewContainer.dataset.tabId = tab.id;
-        
+        const webviewContainer = document.getElementById('webview-container');
+        if (!webviewContainer) {
+            console.error("'webview-container' not found in the DOM.");
+            return;
+        }
+
         const webview = document.createElement('webview');
+        webview.dataset.tabId = tab.id;
         webview.src = tab.url;
-        webview.style.width = '100%';
-        webview.style.height = '100%';
-        
+
         webviewContainer.appendChild(webview);
-        browserViews.appendChild(webviewContainer);
-        
+
         tab.webview = webview;
         this.setupWebviewEvents(tab);
     }
@@ -248,35 +245,28 @@ class BrowserApp {
     }
 
     activateTab(tabId) {
-        // Deactivate current tab
-        const currentTab = document.querySelector('.tab.active');
-        if (currentTab) {
-            currentTab.classList.remove('active');
-        }
-
-        const currentWebview = document.querySelector('.webview-container.active');
-        if (currentWebview) {
-            currentWebview.classList.remove('active');
-        }
-
-        // Activate new tab
-        const newTab = document.querySelector(`[data-tab-id="${tabId}"]`);
-        if (newTab) {
-            newTab.classList.add('active');
-        }
-
-        const newWebview = document.querySelector(`.webview-container[data-tab-id="${tabId}"]`);
-        if (newWebview) {
-            newWebview.classList.add('active');
-        }
+        if (!this.tabs.has(tabId)) return;
 
         this.activeTabId = tabId;
-        this.updateNavigationState();
 
-        // Notify Arc theme if active
+        // Update tab UI (delegated to Arc theme)
         if (this.arcTheme) {
-            this.arcTheme.updateTabActiveStates();
+            this.arcTheme.onTabActivated(tabId);
         }
+
+        // Update webview visibility
+        const webviews = document.querySelectorAll('#webview-container webview');
+        webviews.forEach(wv => {
+            if (wv.dataset.tabId === tabId) {
+                wv.classList.add('active');
+            } else {
+                wv.classList.remove('active');
+            }
+        });
+
+        // Update navigation state
+        const tab = this.tabs.get(tabId);
+        this.navigation.update(tab);
     }
 
     closeTab(tabId) {
@@ -321,7 +311,31 @@ class BrowserApp {
 
     closeActiveTab() {
         if (this.activeTabId) {
-            this.closeTab(this.activeTabId);
+            const tabToClose = this.tabs.get(this.activeTabId);
+            if (tabToClose) {
+                // Remove webview
+                if (tabToClose.webview) {
+                    tabToClose.webview.remove();
+                }
+
+                // Remove tab from internal state
+                this.tabs.delete(this.activeTabId);
+
+                // Update UI
+                if (this.arcTheme) {
+                    this.arcTheme.onTabClosed(tabToClose.id);
+                }
+
+                // Activate another tab
+                const remainingTabs = Array.from(this.tabs.keys());
+                if (remainingTabs.length > 0) {
+                    this.activateTab(remainingTabs[remainingTabs.length - 1]);
+                } else {
+                    // No tabs left, maybe close window or show welcome screen
+                    this.activeTabId = null;
+                    this.navigation.update(null); // Clear navigation state
+                }
+            }
         }
     }
 

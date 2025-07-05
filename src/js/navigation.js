@@ -42,6 +42,7 @@ class NavigationManager {
             addressInput.addEventListener('keypress', (event) => {
                 if (event.key === 'Enter') {
                     this.navigateToUrl(addressInput.value);
+                    addressInput.blur();
                 }
             });
 
