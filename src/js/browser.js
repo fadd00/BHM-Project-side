@@ -47,33 +47,25 @@ class BrowserApp {
     }
 
     setupWindowControls() {
-        const minimizeBtn = document.querySelector('.window-control.minimize');
-        const maximizeBtn = document.querySelector('.window-control.maximize');
-        const closeBtn = document.querySelector('.window-control.close');
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const maximizeBtn = document.getElementById('maximize-btn');
+        const closeBtn = document.getElementById('close-btn');
 
         if (minimizeBtn) {
             minimizeBtn.addEventListener('click', () => {
-                const { remote } = require('electron');
-                remote.getCurrentWindow().minimize();
+                ipcRenderer.send('minimize-window');
             });
         }
 
         if (maximizeBtn) {
             maximizeBtn.addEventListener('click', () => {
-                const { remote } = require('electron');
-                const window = remote.getCurrentWindow();
-                if (window.isMaximized()) {
-                    window.unmaximize();
-                } else {
-                    window.maximize();
-                }
+                ipcRenderer.send('maximize-window');
             });
         }
 
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
-                const { remote } = require('electron');
-                remote.getCurrentWindow().close();
+                ipcRenderer.send('close-window');
             });
         }
     }

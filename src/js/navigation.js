@@ -8,11 +8,10 @@ class NavigationManager {
 
     setupEventListeners() {
         // Navigation buttons
-        const backButton = document.getElementById('back-button');
-        const forwardButton = document.getElementById('forward-button');
-        const refreshButton = document.getElementById('refresh-button');
-        const homeButton = document.getElementById('home-button');
-        const addressInput = document.getElementById('address-input');
+        const backButton = document.getElementById('nav-back');
+        const forwardButton = document.getElementById('nav-forward');
+        const refreshButton = document.getElementById('nav-reload');
+        const addressInput = document.getElementById('address-bar');
 
         if (backButton) {
             backButton.addEventListener('click', () => {
@@ -29,12 +28,6 @@ class NavigationManager {
         if (refreshButton) {
             refreshButton.addEventListener('click', () => {
                 this.browserApp.refreshActiveTab();
-            });
-        }
-
-        if (homeButton) {
-            homeButton.addEventListener('click', () => {
-                this.navigateToHomepage();
             });
         }
 
@@ -83,17 +76,39 @@ class NavigationManager {
 
         // Handle keyboard navigation for suggestions
         document.addEventListener('keydown', (event) => {
-            if (document.activeElement === document.getElementById('address-input')) {
+            if (document.activeElement === document.getElementById('address-bar')) {
                 this.handleSuggestionKeyboard(event);
             }
         });
     }
 
-    navigateToUrl(url) {
-        if (!url.trim()) return;
+    isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            // Check for domain-like patterns without a protocol
+            if (string.includes('.') && !string.includes(' ')) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    navigateToUrl(input) {
+        if (!input.trim()) return;
 
         this.hideSuggestions();
-        
+
+        let url;
+        if (this.isValidUrl(input)) {
+            // Prepend http:// if no protocol is present
+            url = input.startsWith('http') ? input : `http://${input}`;
+        } else {
+            // Treat as a search query
+            url = `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+        }
+
         if (this.browserApp.activeTabId) {
             this.browserApp.navigateTab(this.browserApp.activeTabId, url);
         } else {
@@ -247,7 +262,7 @@ class NavigationManager {
                 if (this.currentSuggestionIndex >= 0) {
                     this.selectSuggestion(this.currentSuggestionIndex);
                 } else {
-                    this.navigateToUrl(document.getElementById('address-input').value);
+                    this.navigateToUrl(document.getElementById('address-bar').value);
                 }
                 break;
             case 'Escape':
@@ -277,7 +292,7 @@ class NavigationManager {
         // Update address input
         const suggestion = this.suggestions[this.currentSuggestionIndex];
         if (suggestion) {
-            document.getElementById('address-input').value = suggestion.url;
+            document.getElementById('address-bar').value = suggestion.url;
         }
     }
 
@@ -302,7 +317,7 @@ class NavigationManager {
         // Update address input
         const suggestion = this.suggestions[this.currentSuggestionIndex];
         if (suggestion) {
-            document.getElementById('address-input').value = suggestion.url;
+            document.getElementById('address-bar').value = suggestion.url;
         }
     }
 
@@ -310,17 +325,6 @@ class NavigationManager {
         if (index >= 0 && index < this.suggestions.length) {
             const suggestion = this.suggestions[index];
             this.navigateToUrl(suggestion.url);
-        }
-    }
-
-    isValidUrl(string) {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            // Check if it's a domain-like string
-            const domainRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
-            return domainRegex.test(string);
         }
     }
 

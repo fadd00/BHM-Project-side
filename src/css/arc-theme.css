@@ -411,15 +411,12 @@
 
 /* Navigation Bar */
 .arc-navigation-bar {
-    height: var(--arc-nav-height);
-    background: linear-gradient(135deg, var(--arc-surface) 0%, rgba(26, 26, 26, 0.95) 100%);
-    border-bottom: 1px solid var(--arc-border);
     display: flex;
     align-items: center;
-    padding: 0 24px;
-    gap: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: var(--arc-nav-height);
+    padding: 0 8px;
+    background: var(--arc-surface);
+    border-bottom: 1px solid var(--arc-border);
 }
 
 .arc-nav-controls {
@@ -462,8 +459,7 @@
 /* Address Bar */
 .arc-address-bar-container {
     flex: 1;
-    max-width: 600px;
-    margin: 0 auto;
+    padding: 0 12px;
 }
 
 .arc-address-bar {
@@ -720,4 +716,33 @@ webview.active {
 
 .arc-tab-item:hover::before, .arc-bookmark-item:hover::before, .arc-history-item:hover::before {
     left: 100%;
+}
+
+/* Window Controls */
+.window-controls {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes controls to the right */
+    padding-right: 12px;
+}
+
+.window-control {
+    background: none;
+    border: none;
+    color: var(--arc-text-secondary);
+    font-size: 16px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: var(--arc-radius-small);
+}
+
+.window-control:hover {
+    background-color: var(--arc-surface-hover);
+    color: var(--arc-text);
+}
+
+.window-control.close:hover {
+    background-color: var(--arc-accent);
+    color: white;
 }
