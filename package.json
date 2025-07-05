@@ -1,0 +1,19 @@
+{
+  "name": "bhm-browser",
+  "version": "1.0.0",
+  "description": "A custom browser built with Electron and Chromium",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": ["browser", "electron", "chromium"],
+  "author": "BHM Project",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/bhm-browser",
+  "devDependencies": {
+    "electron": "^37.2.0"
+  }
+}

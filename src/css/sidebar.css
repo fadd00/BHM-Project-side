@@ -1,0 +1,405 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 300px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 100;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-tab {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #6c757d;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.sidebar-tab:hover {
+    background-color: #dee2e6;
+    color: #495057;
+}
+
+.sidebar-tab.active {
+    background-color: #f8f9fa;
+    color: #212529;
+    border-bottom-color: #3498db;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-panel {
+    display: none;
+    height: 100%;
+    padding: 16px;
+}
+
+.sidebar-panel.active {
+    display: block;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #212529;
+}
+
+.add-bookmark-btn,
+.clear-history-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.add-bookmark-btn:hover {
+    background-color: #2980b9;
+}
+
+.clear-history-btn {
+    background-color: #e74c3c;
+    font-size: 10px;
+    width: auto;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: 4px;
+}
+
+.clear-history-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Bookmarks List */
+.bookmarks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.bookmark-item:hover {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.bookmark-favicon {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bookmark-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.bookmark-title {
+    font-size: 14px;
+    color: #212529;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-url {
+    font-size: 12px;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.bookmark-item:hover .bookmark-remove {
+    display: flex;
+}
+
+.bookmark-remove:hover {
+    background-color: #c0392b;
+}
+
+/* History List */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.history-favicon {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M13 3A9 9 0 0 0 4 12H1L4.89 15.89L4.96 16.03L9 12H6A7 7 0 0 1 13 5A7 7 0 0 1 20 12A7 7 0 0 1 13 19C11.07 19 9.32 18.21 8.06 16.94L6.64 18.36C8.27 20 10.5 21 13 21A9 9 0 0 0 22 12A9 9 0 0 0 13 3M12 8V13L16.28 15.54L17 14.33L13.5 12.25V8H12Z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.history-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.history-title {
+    font-size: 14px;
+    color: #212529;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-url {
+    font-size: 12px;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-time {
+    font-size: 11px;
+    color: #adb5bd;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+/* Settings Panel */
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.setting-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #495057;
+}
+
+.setting-item input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.clear-data-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.clear-data-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.empty-state-subtext {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Dark Mode */
+body.dark-mode .sidebar {
+    background-color: #2c3e50;
+    border-right-color: #34495e;
+}
+
+body.dark-mode .sidebar-header {
+    background-color: #34495e;
+    border-bottom-color: #4a5f7a;
+}
+
+body.dark-mode .sidebar-tab {
+    color: #bdc3c7;
+}
+
+body.dark-mode .sidebar-tab:hover {
+    background-color: #4a5f7a;
+    color: #ecf0f1;
+}
+
+body.dark-mode .sidebar-tab.active {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+body.dark-mode .panel-header {
+    border-bottom-color: #4a5f7a;
+}
+
+body.dark-mode .panel-header h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .bookmark-item,
+body.dark-mode .history-item {
+    background-color: #34495e;
+    border-color: #4a5f7a;
+}
+
+body.dark-mode .bookmark-item:hover,
+body.dark-mode .history-item:hover {
+    background-color: #4a5f7a;
+    border-color: #5a6f8a;
+}
+
+body.dark-mode .bookmark-title,
+body.dark-mode .history-title {
+    color: #ecf0f1;
+}
+
+body.dark-mode .bookmark-url,
+body.dark-mode .history-url {
+    color: #95a5a6;
+}
+
+body.dark-mode .history-time {
+    color: #7f8c8d;
+}
+
+body.dark-mode .setting-item label {
+    color: #bdc3c7;
+}
+
+body.dark-mode .setting-item input[type="text"] {
+    background-color: #34495e;
+    border-color: #4a5f7a;
+    color: #ecf0f1;
+}
+
+body.dark-mode .empty-state {
+    color: #95a5a6;
+}

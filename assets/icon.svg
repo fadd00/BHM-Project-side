@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with Arc-style gradient -->
+  <rect width="512" height="512" rx="120" fill="url(#arcGradient)"/>
+  
+  <!-- Main browser window -->
+  <g transform="translate(256, 256)">
+    <!-- Browser container -->
+    <rect x="-120" y="-90" width="240" height="180" rx="20" fill="url(#windowGradient)" stroke="url(#borderGradient)" stroke-width="2"/>
+    
+    <!-- Arc-style sidebar -->
+    <rect x="-120" y="-90" width="60" height="180" rx="20" fill="url(#sidebarGradient)"/>
+    <rect x="-115" y="-85" width="50" height="170" rx="15" fill="url(#sidebarInner)"/>
+    
+    <!-- Sidebar elements -->
+    <g transform="translate(-90, -60)">
+      <!-- Sidebar icons -->
+      <circle cy="-10" r="6" fill="url(#iconGradient1)"/>
+      <circle cy="15" r="6" fill="url(#iconGradient2)"/>
+      <circle cy="40" r="6" fill="url(#iconGradient3)"/>
+      <circle cy="65" r="6" fill="url(#iconGradient4)"/>
+      
+      <!-- Active indicator -->
+      <rect x="-12" y="-16" width="3" height="12" rx="1.5" fill="url(#activeGradient)"/>
+    </g>
+    
+    <!-- Main content area -->
+    <rect x="-50" y="-85" width="165" height="30" rx="15" fill="url(#topBarGradient)"/>
+    
+    <!-- Address bar -->
+    <rect x="-40" y="-77" width="145" height="14" rx="7" fill="url(#addressBarGradient)"/>
+    
+    <!-- Content lines -->
+    <g transform="translate(-40, -40)">
+      <rect y="0" width="120" height="3" rx="1.5" fill="url(#contentGradient)" opacity="0.8"/>
+      <rect y="15" width="100" height="3" rx="1.5" fill="url(#contentGradient)" opacity="0.6"/>
+      <rect y="30" width="110" height="3" rx="1.5" fill="url(#contentGradient)" opacity="0.7"/>
+      <rect y="45" width="90" height="3" rx="1.5" fill="url(#contentGradient)" opacity="0.5"/>
+      <rect y="60" width="105" height="3" rx="1.5" fill="url(#contentGradient)" opacity="0.6"/>
+    </g>
+    
+    <!-- Arc logo in center -->
+    <g transform="translate(0, 20)">
+      <circle r="25" fill="url(#logoGradient)" opacity="0.9"/>
+      <path d="M-15 -8 L0 -20 L15 -8 L15 8 L0 20 L-15 8 Z" fill="white" opacity="0.9"/>
+    </g>
+  </g>
+  
+  <!-- Subtle outer glow -->
+  <rect width="512" height="512" rx="120" fill="none" stroke="url(#glowGradient)" stroke-width="3" opacity="0.4"/>
+  
+  <defs>
+    <!-- Arc-style gradients -->
+    <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="windowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:0.95" />
+    </linearGradient>
+    
+    <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#cbd5e1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#94a3b8;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="sidebarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="sidebarInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#334155;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="topBarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="addressBarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="contentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#64748b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#94a3b8;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="iconGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="iconGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="iconGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="iconGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="activeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c4b5fd;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

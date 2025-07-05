@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHM Browser</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/arc-theme.css">
+    <link rel="stylesheet" href="css/tabs.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body class="arc-theme">
+    <div class="browser-container">
+        <!-- Arc-style Sidebar -->
+        <div class="arc-sidebar" id="arc-sidebar">
+            <div class="arc-sidebar-header">
+                <div class="arc-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="arc-profile">
+                    <div class="arc-avatar"></div>
+                </div>
+            </div>
+            
+            <div class="arc-sidebar-content">
+                <!-- Navigation Section -->
+                <div class="arc-nav-section">
+                    <button class="arc-nav-btn active" data-nav="tabs">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h3A1.5 1.5 0 0 1 7 3.5v1A1.5 1.5 0 0 1 5.5 6h-3A1.5 1.5 0 0 1 1 4.5v-1zM2.5 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 2h3A1.5 1.5 0 0 1 15 3.5v1A1.5 1.5 0 0 1 13.5 6h-3A1.5 1.5 0 0 1 9 4.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-3z"/>
+                        </svg>
+                    </button>
+                    <button class="arc-nav-btn" data-nav="bookmarks">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 12l-5 3V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v12l-5-3z"/>
+                        </svg>
+                    </button>
+                    <button class="arc-nav-btn" data-nav="history">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5V7.5h2a.5.5 0 0 1 0 1H8a.5.5 0 0 1-.5-.5V4.5A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Tabs Section -->
+                <div class="arc-tabs-section" id="arc-tabs-section">
+                    <div class="arc-tabs-header">
+                        <span class="arc-section-title">Tabs</span>
+                        <button class="arc-new-tab-btn" id="arc-new-tab-btn">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M6 1a.5.5 0 0 1 .5.5v4h4a.5.5 0 0 1 0 1h-4v4a.5.5 0 0 1-1 0v-4h-4a.5.5 0 0 1 0-1h4v-4A.5.5 0 0 1 6 1z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="arc-tabs-list" id="arc-tabs-list">
+                        <!-- Tabs will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Bookmarks Section -->
+                <div class="arc-bookmarks-section" id="arc-bookmarks-section" style="display: none;">
+                    <div class="arc-section-header">
+                        <span class="arc-section-title">Bookmarks</span>
+                        <button class="arc-add-btn" id="arc-add-bookmark-btn">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M6 1a.5.5 0 0 1 .5.5v4h4a.5.5 0 0 1 0 1h-4v4a.5.5 0 0 1-1 0v-4h-4a.5.5 0 0 1 0-1h4v-4A.5.5 0 0 1 6 1z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="arc-bookmarks-list" id="arc-bookmarks-list">
+                        <!-- Bookmarks will be populated here -->
+                    </div>
+                </div>
+
+                <!-- History Section -->
+                <div class="arc-history-section" id="arc-history-section" style="display: none;">
+                    <div class="arc-section-header">
+                        <span class="arc-section-title">History</span>
+                        <button class="arc-clear-btn" id="arc-clear-history-btn">Clear</button>
+                    </div>
+                    <div class="arc-history-list" id="arc-history-list">
+                        <!-- History will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="arc-sidebar-footer">
+                <button class="arc-settings-btn" id="arc-settings-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="arc-main-content">
+            <!-- Navigation Bar -->
+            <div class="arc-navigation-bar">
+                <div class="arc-nav-controls">
+                    <button class="arc-nav-button" id="back-button" disabled>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>
+                    </button>
+                    <button class="arc-nav-button" id="forward-button" disabled>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                    </button>
+                    <button class="arc-nav-button" id="refresh-button">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="arc-address-bar-container">
+                    <div class="arc-address-bar">
+                        <div class="arc-security-indicator" id="security-indicator">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="address-input" placeholder="Search or enter address">
+                        <button class="arc-bookmark-button" id="bookmark-button">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 12l-5 3V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v12l-5-3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browser Views Container -->
+            <div class="arc-browser-views" id="browser-views">
+                <!-- WebViews will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" id="settings-modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>
+                        <span>Homepage</span>
+                        <input type="text" id="homepage-input" placeholder="Homepage URL">
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="popup-blocker">
+                        <span>Block Pop-ups</span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="dark-mode">
+                        <span>Dark Mode</span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <button class="clear-data-btn" id="clear-data-btn">Clear All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bookmark Modal -->
+    <div class="modal" id="bookmark-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Bookmark</h3>
+                <button class="modal-close" id="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="bookmark-title" placeholder="Bookmark title">
+                <input type="text" id="bookmark-url" placeholder="URL">
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" id="cancel-bookmark">Cancel</button>
+                <button class="btn primary" id="save-bookmark">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/browser.js"></script>
+    <script src="js/arc-browser.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/bookmarks.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
