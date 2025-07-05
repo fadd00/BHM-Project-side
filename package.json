@@ -9,11 +9,16 @@
     "build": "electron-builder",
     "dist": "electron-builder --publish=never"
   },
-  "keywords": ["browser", "electron", "chromium"],
+  "keywords": [
+    "browser",
+    "electron",
+    "chromium"
+  ],
   "author": "BHM Project",
   "license": "MIT",
   "homepage": "https://github.com/yourusername/bhm-browser",
   "devDependencies": {
-    "electron": "^37.2.0"
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
   }
 }
